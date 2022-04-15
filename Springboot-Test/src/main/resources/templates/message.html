@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    thymeleaf模版引擎的页面必须得通过中央调度器
+-->
+
+first<span th:text="${data1}"></span>
+
+<h1>标准变量表达式:${} -> (推荐)</h1>
+用户编号:<span th:text="${user.getId()}"></span><br/>
+用户姓名:<span th:text="${user.getUsername()}"></span><br/>
+
+<a th:href="@{http://www.bjpowernode.com}">路径表达式:路径到动力节点</a><br/>
+<a th:href="@{http://localhost:8080/user/login}">跳转至:/user/login</a><br/>
+<a th:href="@{http://localhost:8080/studentRestful/3}">跳转至:/studentRestful</a><br/>
+
+<h1>从SESSION中获取值</h1>
+<span th:text="${#session.getAttribute('data')}"></span><br/>
+<span th:text="${#httpSession.getAttribute('data')}"></span><br/>
+<span th:text="${session.data}"></span><br/>
+
+<script type="text/javascript" th:inline="javascript">
+    // http://localhost:8080/message3
+    //获取协议名称
+    var scheme = [[${#request.getScheme()}]];
+
+    //获取服务器名称
+    var serverName = [[${#request.getServerName()}]];
+
+    //获取服务器端口号
+    var serverPort = [[${#request.getServerPort()}]];
+
+    //获取上下文根
+    var contextPath = [[${#request.getContextPath()}]];
+
+    var allPath = scheme + "://" +serverName+":"+serverPort+contextPath;
+
+    // 获取URL
+    var requestURL = [[${#httpServletRequest.requestURL}]];
+
+    //查询参数
+    var queryString = [[${#httpServletRequest.queryString}]];
+
+    var requestAddress = requestURL + "?" +queryString;
+
+    alert(requestAddress);
+</script>
+</body>
+</html>
